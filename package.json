@@ -1,0 +1,17 @@
+{
+  "name": "figma-api-trial",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "author": "Daniel Winter",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv-defaults": "5.0.2",
+    "express": "4.16.3",
+    "isomorphic-fetch": "2.2.1",
+    "nodemon": "1.18.3"
+  }
+}
