@@ -59,5 +59,5 @@ app.use("/", async function (req, res, next) {
 
 app.listen(
   3001,
-  console.log("Holy shit, I'm a server and I am listening on port 3001 and hello world")
+  console.log("Server is listening on port 3001")
 );
