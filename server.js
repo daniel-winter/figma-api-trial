@@ -36,8 +36,10 @@ async function figmaFileFetch(fileId) {
   console.log("ids", ids);
 
   // replace hard coded ids with const
+  // take only two nodes so the response is faster and smaller
+  // spacing 10:56741 and colors 10:56803
   const nodeResult = await fetch(
-    "https://api.figma.com/v1/files/" + fileId + "/nodes?ids=3529:66067",
+    "https://api.figma.com/v1/files/" + fileId + "/nodes?ids=10:56741,10:56803",
     {
       method: "GET",
       headers: {
@@ -53,8 +55,27 @@ app.use("/", async function (req, res, next) {
   let result = await figmaFileFetch(process.env.FIGMA_FILE_ID).catch((error) =>
     console.log(error)
   );
-  console.log("result", result);
-  res.send(JSON.stringify(result));
+
+  const getChildren = Object.values(result.nodes).map((item) => {
+    return item.document.children;
+  })
+
+  const getNames = Object.values(result.nodes).map((item) => {
+    return item.document.name;
+  })
+
+  const mappedChildren = getChildren.map((firstChild) => {
+    return firstChild[0];
+  })
+
+  console.log("getChildren - ", getChildren);
+  console.log("getNames - ", getNames);
+  console.log("mappedChildren - ", mappedChildren);
+  const printNames = getNames.map((name) => {
+    console.log("names:", name);
+  });
+
+  res.send(JSON.stringify(mappedChildren));
 });
 
 app.listen(
